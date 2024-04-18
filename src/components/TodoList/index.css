@@ -1,0 +1,113 @@
+.li-ele {
+	list-style-type: none;
+	margin: 0px;
+	display: flex;
+}
+
+.checkbox-container {
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* .checkbox-container:hover {
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	border: 2px solid blue;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+} */
+
+.input-checkbox {
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+}
+
+.input-checkbox:hover {
+	/* border: 1px solid red !important;
+	background-color: yellow; */
+	width: 25px;
+	height: 25px;
+}
+
+.each-todo-main-container {
+	display: flex;
+	align-items: center;
+}
+
+.each-todo-container,
+.each-todo-container-hover,
+.editing-each-todo-container {
+	display: flex;
+	border: 1px solid grey;
+	border-radius: 5px;
+	margin: 10px 5px;
+	width: 270px;
+	align-items: center;
+	flex-grow: 1;
+}
+
+.underline {
+	text-decoration: line-through;
+}
+
+.each-todo-container-hover:hover,
+.editing-each-todo-container {
+	box-shadow: 3px 5px 5px #888888;
+}
+
+.each-todo,
+.editing-todo-input,
+.each-todo-hover {
+	width: 250px;
+	font-size: 15px;
+	margin: 0px;
+	padding: 10px;
+}
+
+.editing-todo-input {
+	border: none;
+	outline: none;
+}
+
+.done-btn,
+.edit-btn,
+.delete-btn {
+	outline: none;
+	border: 0px;
+	background-color: transparent;
+	padding: 0px;
+	cursor: pointer;
+	font-size: 20px;
+	margin: 0px;
+	padding-right: 10px;
+}
+
+.edit-btn {
+	display: none;
+}
+
+.each-todo-container-hover:hover .edit-btn {
+	display: flex;
+}
+
+.delete-btn {
+	width: 30px;
+	height: 30px;
+}
+
+.delete-icon {
+	width: 25px;
+	height: 25px;
+	color: grey;
+}
+
+.delete-icon:hover {
+	width: 30px;
+	height: 30px;
+}
