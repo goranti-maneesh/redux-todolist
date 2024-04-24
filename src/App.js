@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { MdDone } from "react-icons/md";
+import { TfiReload } from "react-icons/tfi";
+import { GoDash } from "react-icons/go";
 
 import TodoList from "./components/TodoList";
 import {
@@ -9,17 +12,32 @@ import {
 	editTodoAction,
 	editTodoStatusAction,
 } from "./redux/action/action";
+import { getFilteredTodos } from "./redux/selector/slector";
+
 import "./App.css";
 
+const statusConstraints = {
+	yetTodo: "YET_TODO",
+	inprogress: "IN_PROGRESS",
+	completed: "COMPLETED",
+};
+
 const App = () => {
+	const { yetTodo, inprogress, completed } = statusConstraints;
+
 	const [todo, setTodo] = useState("");
 	const [id, setId] = useState(0);
 	const [isHover, setHover] = useState(true);
+	const [displayedTodoStatus, setDisplayTodoStatus] = useState(yetTodo);
 
 	const dispatch = useDispatch();
-	const todos = useSelector((state) => {
-		return state.todos;
-	});
+
+	const filteredTodos = useSelector(getFilteredTodos);
+	const todos = filteredTodos(displayedTodoStatus);
+
+	const onClickSetDisplayTodoStatus = (todoStatus) => {
+		setDisplayTodoStatus(todoStatus);
+	};
 
 	const addTodo = (event) => {
 		event.preventDefault();
@@ -27,7 +45,7 @@ const App = () => {
 		const newTodo = {
 			id: id,
 			todo,
-			isCompleted: false,
+			status: yetTodo,
 			isEditable: false,
 		};
 
@@ -41,8 +59,8 @@ const App = () => {
 		setHover(true);
 	};
 
-	const updateTodoStatus = (id) => {
-		dispatch(updateTodoStatusAction(id));
+	const updateTodoStatus = (id, todoStatus) => {
+		dispatch(updateTodoStatusAction(id, todoStatus));
 	};
 
 	const editTodo = (id, todo) => {
@@ -53,6 +71,49 @@ const App = () => {
 	const editTodoStatus = (id) => {
 		dispatch(editTodoStatusAction(id));
 		setHover(false);
+	};
+
+	const renderButtons = () => {
+		return (
+			<div className="statusBtnContainer">
+				<button
+					type="button"
+					onClick={() => onClickSetDisplayTodoStatus(yetTodo)}
+					className={
+						displayedTodoStatus === yetTodo
+							? "yetTodoBtn selectedYetTodoBtn"
+							: "yetTodoBtn"
+					}
+				>
+					<GoDash className="dash-icon" />
+					Yet Todo
+				</button>
+				<button
+					type="button"
+					onClick={() => onClickSetDisplayTodoStatus(inprogress)}
+					className={
+						displayedTodoStatus === inprogress
+							? "inProgressBtn selectedInProgressBtn"
+							: "inProgressBtn"
+					}
+				>
+					<TfiReload className="reload-icon" />
+					In Progress
+				</button>
+				<button
+					type="button"
+					onClick={() => onClickSetDisplayTodoStatus(completed)}
+					className={
+						displayedTodoStatus === completed
+							? "completedBtn selectedCompletedBtn"
+							: "completedBtn"
+					}
+				>
+					<MdDone className="done-icon" />
+					Completed
+				</button>
+			</div>
+		);
 	};
 
 	return (
@@ -72,6 +133,7 @@ const App = () => {
 						Add Todo
 					</button>
 				</form>
+				{renderButtons()}
 				<ul className="ul-ele">
 					{todos.map((eachTodo) => (
 						<TodoList

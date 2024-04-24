@@ -1,10 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
-import { MdDownloadDone, MdDeleteOutline } from "react-icons/md";
+import { MdDownloadDone, MdDeleteOutline, MdDone } from "react-icons/md";
+import { TfiReload } from "react-icons/tfi";
+import { GoDash } from "react-icons/go";
+import Popup from "reactjs-popup";
 
 import "./index.css";
 
-const TodoList = (props) => {
+const classnamesObj = {
+	YET_TODO: "yet-todo",
+	IN_PROGRESS: "in-progress",
+	COMPLETED: "completed",
+};
+
+const TodoList = React.memo((props) => {
 	const {
 		deleteTodo,
 		updateTodoStatus,
@@ -13,7 +22,8 @@ const TodoList = (props) => {
 		editTodoStatus,
 		isHover,
 	} = props;
-	const { id, todo, isCompleted, isEditable } = eachTodo;
+	console.log(12345);
+	const { id, todo, status, isEditable } = eachTodo;
 
 	const inputRef = useRef(null);
 
@@ -24,6 +34,67 @@ const TodoList = (props) => {
 			inputRef.current.focus();
 		}
 	}, [isEditable]);
+
+	const onChangeTodoStatus = (status) => {
+		updateTodoStatus(id, status);
+	};
+
+	const onClickDeleteTodo = () => {
+		deleteTodo(id);
+	};
+
+	const renderCompletedTodoDeleteBtn = () => {
+		return (
+			<button
+				className="delete-btn"
+				type="button"
+				onClick={onClickDeleteTodo}
+			>
+				<MdDeleteOutline className="delete-icon" />
+			</button>
+		);
+	};
+
+	const renderOtherTodosDeleteBtn = () => {
+		return (
+			<div className="popup-main-container">
+				<Popup
+					modal
+					trigger={
+						<button className="delete-btn" type="button">
+							<MdDeleteOutline className="delete-icon" />
+						</button>
+					}
+				>
+					{(close) => (
+						<>
+							<div className="popup-container">
+								<p className="popup-text">
+									Want to delete todo without completing
+								</p>
+							</div>
+							<div className="popup-btns-container">
+								<button
+									type="button"
+									className="popup-yes-btn"
+									onClick={onClickDeleteTodo}
+								>
+									Yes
+								</button>
+								<button
+									type="button"
+									className="trigger-button popup-cancel-btn"
+									onClick={() => close()}
+								>
+									Cancel
+								</button>
+							</div>
+						</>
+					)}
+				</Popup>
+			</div>
+		);
+	};
 
 	const renderInputEle = () => {
 		return (
@@ -49,21 +120,16 @@ const TodoList = (props) => {
 	};
 
 	const renderParagraphEle = () => {
-		const classname = isHover ? "each-todo-hover" : "each-todo";
+		const classname = isHover ? `each-todo-hover` : `each-todo`;
 		return (
 			<div
 				className={
 					isHover
-						? "each-todo-container-hover"
-						: "each-todo-container"
+						? `each-todo-container-hover ${classnamesObj[status]}`
+						: `each-todo-container ${classnamesObj[status]}`
 				}
 			>
-				<label
-					htmlFor={`todo${id}`}
-					className={
-						isCompleted ? `underline ${classname}` : classname
-					}
-				>
+				<label htmlFor={`todo${id}`} className={classname}>
 					{todo}
 				</label>
 				<button
@@ -81,24 +147,45 @@ const TodoList = (props) => {
 		<li key={todo.id} className="li-ele">
 			<div className="each-todo-main-container">
 				<div className="checkbox-container">
-					<input
-						className="input-checkbox"
-						type="checkbox"
-						onChange={() => updateTodoStatus(id)}
-						id={`todo${id}`}
-					/>
+					{!(status === "YET_TODO") && (
+						<button
+							className="yet-todo-btn"
+							onClick={() => onChangeTodoStatus("YET_TODO")}
+							type="button"
+						>
+							<GoDash
+								width="18px"
+								height="18px"
+								className="yet-todo-icon"
+							/>
+						</button>
+					)}
+					{!(status === "IN_PROGRESS") && (
+						<button
+							className="in-progress-btn"
+							onClick={() => onChangeTodoStatus("IN_PROGRESS")}
+							type="button"
+						>
+							<TfiReload className="in-progress-icon" />
+						</button>
+					)}
+					{!(status === "COMPLETED") && (
+						<button
+							className="completed-btn"
+							onClick={() => onChangeTodoStatus("COMPLETED")}
+							type="button"
+						>
+							<MdDone className="completed-icon" />
+						</button>
+					)}
 				</div>
 				{isEditable ? renderInputEle() : renderParagraphEle()}
-				<button
-					className="delete-btn"
-					type="button"
-					onClick={() => deleteTodo(id)}
-				>
-					<MdDeleteOutline className="delete-icon" />
-				</button>
+				{status === "COMPLETED"
+					? renderCompletedTodoDeleteBtn()
+					: renderOtherTodosDeleteBtn()}
 			</div>
 		</li>
 	);
-};
+});
 
 export default TodoList;

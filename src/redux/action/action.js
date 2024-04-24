@@ -8,9 +8,12 @@ export const deleteTodoAction = (id) => ({
 	payload: id,
 });
 
-export const updateTodoStatusAction = (id) => ({
+export const updateTodoStatusAction = (id, todoStatus) => ({
 	type: "UPDATE_TODO_STATUS",
-	payload: id,
+	payload: {
+		id,
+		todoStatus
+	}
 });
 
 export const editTodoAction = (id, todo) => ({

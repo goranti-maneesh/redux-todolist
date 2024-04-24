@@ -5,22 +5,12 @@
 }
 
 .checkbox-container {
-	width: 25px;
-	height: 25px;
+	/* width: 25px;
+	height: 25px; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
-/* .checkbox-container:hover {
-	width: 20px;
-	height: 20px;
-	padding: 0px;
-	border: 2px solid blue;
-	border-radius: 4px;
-	display: flex;
-	align-items: center;
-} */
 
 .input-checkbox {
 	width: 20px;
@@ -29,8 +19,6 @@
 }
 
 .input-checkbox:hover {
-	/* border: 1px solid red !important;
-	background-color: yellow; */
 	width: 25px;
 	height: 25px;
 }
@@ -47,9 +35,10 @@
 	border: 1px solid grey;
 	border-radius: 5px;
 	margin: 10px 5px;
-	width: 270px;
+	width: 265px;
 	align-items: center;
 	flex-grow: 1;
+	background-color: white;
 }
 
 .underline {
@@ -68,6 +57,7 @@
 	font-size: 15px;
 	margin: 0px;
 	padding: 10px;
+	border-radius: 5px;
 }
 
 .editing-todo-input {
@@ -110,4 +100,96 @@
 .delete-icon:hover {
 	width: 30px;
 	height: 30px;
+}
+
+.yet-todo {
+	background-color: #ded9d7;
+}
+
+.in-progress {
+	background-color: #9d9deb;
+}
+
+.completed {
+	background-color: #b7f2ae;
+}
+
+.yet-todo-btn,
+.in-progress-btn,
+.completed-btn {
+	width: 20px;
+	height: 20px;
+	border-radius: 15px;
+	outline: none;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	margin-right: 5px;
+	color: white;
+	font-size: 18px;
+	padding: 5px;
+}
+
+.yet-todo-btn {
+	background-color: grey;
+}
+
+.in-progress-btn {
+	background-color: blue;
+}
+
+.completed-btn {
+	background-color: green;
+}
+
+.yet-todo-icon,
+.in-progress-icon,
+.completed-icon {
+	/* font-size: 18px; */
+	width: 15px;
+	height: 15px;
+}
+
+#popup-root {
+	background-color: #b7f2ae;
+}
+
+.popup-overlay {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+	background-color: white;
+	padding: 25px;
+	border-radius: 5px;
+}
+
+.popup-btns-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.popup-text {
+	font-size: 18px;
+	margin: 0px;
+	margin-bottom: 30px;
+}
+
+.popup-cancel-btn,
+.popup-yes-btn {
+	outline: none;
+	background-color: transparent;
+	border-radius: 5px;
+	padding: 10px;
+	width: 75px;
+	cursor: pointer;
+}
+
+.popup-cancel-btn {
+	background-color: black;
+	color: white;
+	margin-left: 20px;
 }

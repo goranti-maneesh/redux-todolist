@@ -6,11 +6,11 @@ export const todoReducer = (state = [], action) => {
 			return state.filter((eachTodo) => eachTodo.id !== action.payload);
 		case "UPDATE_TODO_STATUS":
 			return state.map((eachTodo) => {
-				if (eachTodo.id === action.payload) {
+				if (eachTodo.id === action.payload.id) {
 					return {
 						id: eachTodo.id,
 						todo: eachTodo.todo,
-						isCompleted: !eachTodo.isCompleted,
+						status: action.payload.todoStatus,
 						isEditable: eachTodo.isEditable,
 					};
 				}
@@ -22,7 +22,7 @@ export const todoReducer = (state = [], action) => {
 					return {
 						id: eachTodo.id,
 						todo: action.payload.todo,
-						isCompleted: eachTodo.isCompleted,
+						status: eachTodo.status,
 						isEditable: !eachTodo.isEditable,
 					};
 				}
@@ -30,12 +30,11 @@ export const todoReducer = (state = [], action) => {
 			});
 		case "EDIT_TODO_STATUS":
 			return state.map((eachTodo) => {
-				console.log(action.payload, "reducer");
 				if (eachTodo.id === action.payload) {
 					return {
 						id: eachTodo.id,
 						todo: eachTodo.todo,
-						isCompleted: eachTodo.isCompleted,
+						status: eachTodo.status,
 						isEditable: !eachTodo.isEditable,
 					};
 				}

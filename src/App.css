@@ -68,6 +68,65 @@
 	cursor: pointer;
 }
 
+.statusBtnContainer {
+	display: flex;
+	margin: 20px 0px;
+	width: 320px;
+	justify-content: space-between;
+}
+
+.yetTodoBtn,
+.inProgressBtn,
+.completedBtn {
+	outline: none;
+	cursor: pointer;
+	width: 103px;
+	height: 30px;
+	border-radius: 5px;
+	background-color: transparent;
+	border: none;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	display: flex;
+	align-items: center;
+}
+
+.yetTodoBtn {
+	border: 2px solid grey;
+}
+
+.inProgressBtn {
+	border: 2px solid blue;
+}
+
+.completedBtn {
+	border: 2px solid green;
+}
+
+.selectedYetTodoBtn {
+	color: white;
+	background-color: grey;
+	border: none;
+}
+
+.selectedInProgressBtn {
+	color: white;
+	background-color: blue;
+	border: none;
+}
+
+.selectedCompletedBtn {
+	color: white;
+	background-color: green;
+	border: none;
+}
+
 .ul-ele {
 	padding: 0px;
+}
+
+.dash-icon,
+.reload-icon,
+.done-icon {
+	margin-right: 5px;
 }
